@@ -12,12 +12,16 @@ import java.util.Map;
 
 public record PrincipalDetails(
         Member user,
-        Map<String, Object> attributes,
-        String attributeKey) implements OAuth2User, UserDetails {
+        Map<String, Object> attributes) implements OAuth2User, UserDetails {
 
     @Override
     public String getName() {
-        return attributes.get(attributeKey).toString();
+        return user.getProviderId();
+    }
+
+    @Override
+    public String toString() {
+        return user.getProviderId(); // 또는 원하는 식별자
     }
 
     @Override

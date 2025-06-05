@@ -59,6 +59,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->
                         request.requestMatchers(
                                 "/",
+                                        "/hello",
                                         "/error",
                                         "/favicon.ico",
                                         "/swagger-ui/**",

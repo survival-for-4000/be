@@ -106,8 +106,7 @@ public class TokenProvider {
 
         PrincipalDetails principalDetails = new PrincipalDetails(
                 member,
-                new HashMap<>(),
-                "providerId"
+                new HashMap<>()
         );
 
         return new UsernamePasswordAuthenticationToken(principalDetails, "", principalDetails.getAuthorities());

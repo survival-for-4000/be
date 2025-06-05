@@ -7,8 +7,6 @@ import com.example._0.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -33,23 +31,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
-        String userNameAttributeName = userRequest.getClientRegistration()
-                .getProviderDetails()
-                .getUserInfoEndpoint()
-                .getUserNameAttributeName();
-
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfo.of(registrationId, attributes);
         Member member = getOrSave(oAuth2UserInfo);
 
-        PrincipalDetails principalDetails = new PrincipalDetails(member, attributes, userNameAttributeName);
-
-        SecurityContextHolder.getContext().setAuthentication(
-                new OAuth2AuthenticationToken(
-                        principalDetails,
-                        principalDetails.getAuthorities(),
-                        registrationId
-                )
-        );
+        PrincipalDetails principalDetails = new PrincipalDetails(member, attributes);
 
         return principalDetails;
     }
