@@ -4,8 +4,10 @@ package com.example._0.util;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.util.SerializationUtils;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Optional;
 
 public class CookieUtils {
@@ -42,5 +44,15 @@ public class CookieUtils {
                 response.addCookie(cookie);
             }
         }
+    }
+    public static String serialize(Object obj) {
+        return Base64.getUrlEncoder()
+                .encodeToString(SerializationUtils.serialize(obj));
+    }
+
+    public static <T> T deserialize(String cookieValue) {
+        return (T) SerializationUtils.deserialize(
+                Base64.getUrlDecoder().decode(cookieValue)
+        );
     }
 }

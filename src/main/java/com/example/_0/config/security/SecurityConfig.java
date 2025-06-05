@@ -2,6 +2,7 @@ package com.example._0.config.security;
 
 
 import com.example._0.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.example._0.oauth.repository.CustomAuthorizationRequestRepository;
 import com.example._0.oauth.service.CustomOAuth2UserService;
 import com.example._0.oauth.token.TokenAuthenticationFilter;
 import com.example._0.oauth.token.TokenExceptionFilter;
@@ -34,7 +35,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthorizationRequestRepository<OAuth2AuthorizationRequest> cookieAuthorizationRequestRepository() {
-        return new HttpCookieOAuth2AuthorizationRequestRepository();
+        return new CustomAuthorizationRequestRepository();
     }
 
     @Bean
